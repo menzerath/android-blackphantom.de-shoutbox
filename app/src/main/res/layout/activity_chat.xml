@@ -29,8 +29,7 @@
         android:layout_toLeftOf="@+id/button"
         android:enabled="false"
         android:hint="@string/editText_hint"
-        android:inputType="text" />
-    <!-- Für Emoji-Tastatur: android:inputType="text|textShortMessage" -->
+        android:inputType="textShortMessage" />
 
     <Button
         android:id="@+id/button"

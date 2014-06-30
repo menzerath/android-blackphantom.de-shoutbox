@@ -52,7 +52,7 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         TextView tvFrom = (TextView) row.findViewById(R.id.data);
 
         // Setzt die Nachricht / den Absender + Zeitpunkt
-        tvMessage.setText(message.getMessage());
+        tvMessage.setText(Emoji.replaceInText(message.getMessage()));
         tvFrom.setText(message.getFrom() + " - " + Helper.formatDateToString(message.getTime()));
 
         // Blase links: gelb
