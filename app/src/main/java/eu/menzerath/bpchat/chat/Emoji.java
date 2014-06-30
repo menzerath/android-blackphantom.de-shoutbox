@@ -31,20 +31,22 @@ public class Emoji {
 
         private ReplacementsMap() {
             super();
-            put(":)", 0x1F60A);
+            put(":)", 0x1F604);
             put(";)", 0x1F609);
             put(":(", 0x1F61E);
             put(":D", 0x1F603);
             put(":'D", 0x1F602);
             put(":P", 0x1F61C);
-            put(":O", 0x1F631);
-            put(":3", 0x263A);
+            put(":O", 0x1F628);
+            put(":3", 0x1F60A);
             put(":*", 0x1F618);
             put(":/", 0x1F612);
             put("<3", 0x2764);
             put("xD", 0x1F601);
+            put("^^", 0x1F606);
+            put("o.O", 0x1F627);
             put("*_*", 0x1F60D);
-            put("-_-", 0x1F614);
+            put("-_-", 0x1F611);
             put(">:[", 0x1F621);
             put(":y:", 0x1F44D);
         }
