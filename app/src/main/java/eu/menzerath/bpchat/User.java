@@ -33,7 +33,9 @@ import eu.menzerath.bpchat.chat.Helper;
  * TODO: Klasse aufräumen!
  */
 public class User {
-    // TODO: HTTPS verwenden!!!
+    //private static final String LOGIN_URL = "https://blacky.pf-control.de/chat/api/authentication.php";
+    //private static final String SEND_MESSAGE_URL = "https://blacky.pf-control.de/chat/api/sendMessage.php";
+    //private static final String GET_MESSAGES_URL = "https://blacky.pf-control.de/chat/api/loadLastMessages.php";
     private static final String LOGIN_URL = "http://chat.blackphantom.de/api/authentication.php";
     private static final String SEND_MESSAGE_URL = "http://chat.blackphantom.de/api/sendMessage.php";
     private static final String GET_MESSAGES_URL = "http://chat.blackphantom.de/api/loadLastMessages.php";
@@ -41,8 +43,12 @@ public class User {
     private final SharedPreferences prefs;
     public final String username;
     public final String password;
-    private String lastError;
     private HttpContext localContext;
+
+    private String lastError;
+    private boolean isLoggedIn;
+    private boolean isLoadingMessages;
+    private boolean isSendingMessage;
 
     /**
      * Konstruktor des Nutzers
@@ -84,6 +90,7 @@ public class User {
             JSONObject json = new JSONObject(jsonResponse);
 
             if (json.getBoolean("success")) {
+                isLoggedIn = true;
                 return true;
             } else {
                 JSONArray errors = json.getJSONArray("errors");
@@ -92,12 +99,12 @@ public class User {
                 for (int i = 0; i < errors.length(); i++) {
                     lastError += errors.getString(i);
                 }
-                return false;
             }
         } catch (Exception e) {
             lastError = e.getMessage();
-            return false;
         }
+        isLoggedIn = false;
+        return false;
     }
 
     /**
@@ -107,6 +114,8 @@ public class User {
      * @return Ob der Sendevorgang erfolgreich war
      */
     public int sendMessage(String message) {
+        isSendingMessage = true;
+
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(SEND_MESSAGE_URL);
         try {
@@ -122,6 +131,7 @@ public class User {
             JSONObject json = new JSONObject(jsonResponse);
 
             if (json.getBoolean("success")) {
+                isSendingMessage = false;
                 return Integer.parseInt(json.getString("payload"));
             } else {
                 JSONArray errors = json.getJSONArray("errors");
@@ -130,12 +140,12 @@ public class User {
                 for (int i = 0; i < errors.length(); i++) {
                     lastError += errors.getString(i);
                 }
-                return 0;
             }
         } catch (Exception e) {
             lastError = e.getMessage();
-            return 0;
         }
+        isSendingMessage = false;
+        return 0;
     }
 
     /**
@@ -144,6 +154,8 @@ public class User {
      * @return Die 100 letzten Nachrichten
      */
     public ArrayList<ChatMessage> getMessages() {
+        isLoadingMessages = true;
+
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(GET_MESSAGES_URL);
         try {
@@ -181,6 +193,7 @@ public class User {
                     messages.add(new ChatMessage(Integer.parseInt(key), messageData.getString(0), Helper.serverTimestampToDate(messageData.getString(1)), message, !ownMessage));
                 }
                 Collections.sort(messages);
+                isLoadingMessages = false;
                 return messages;
             } else {
                 JSONArray errors = json.getJSONArray("errors");
@@ -189,19 +202,26 @@ public class User {
                 for (int i = 0; i < errors.length(); i++) {
                     lastError += errors.getString(i);
                 }
-                return null;
             }
         } catch (Exception e) {
             lastError = e.getMessage();
-            return null;
         }
+        isLoadingMessages = false;
+        return null;
     }
 
-    /**
-     * Gibt den letzten aufgetretenen Fehler zurück
-     *
-     * @return Letzter Fehler
-     */
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public boolean isLoadingMessages() {
+        return isLoadingMessages;
+    }
+
+    public boolean isSendingMessage() {
+        return isSendingMessage;
+    }
+
     public String getLastError() {
         return lastError;
     }

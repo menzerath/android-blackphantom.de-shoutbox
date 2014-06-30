@@ -48,16 +48,18 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         LinearLayout messageBubble = (LinearLayout) row.findViewById(R.id.bubble);
 
         ChatMessage message = getItem(position);
+        TextView tvFrom = (TextView) row.findViewById(R.id.from);
+        TextView tvTime = (TextView) row.findViewById(R.id.time);
         TextView tvMessage = (TextView) row.findViewById(R.id.message);
-        TextView tvFrom = (TextView) row.findViewById(R.id.data);
 
-        // Setzt die Nachricht / den Absender + Zeitpunkt
+        // Setzt den Absender + Zeitpunkt / Nachricht
+        tvFrom.setText(message.getFrom());
+        tvTime.setText(Helper.formatDateToString(message.getTime()));
         tvMessage.setText(message.getMessage());
-        tvFrom.setText(message.getFrom() + " - " + Helper.formatDateToString(message.getTime()));
 
-        // Blase links: gelb
+        // Blase links: weiß
         // Blase rechts: grün
-        messageBubble.setBackgroundResource(message.isLeft() ? R.drawable.bubble_yellow : R.drawable.bubble_green);
+        messageBubble.setBackgroundResource(message.isLeft() ? R.drawable.bubble_left : R.drawable.bubble_right);
         messageBubble.setGravity(message.isLeft() ? Gravity.LEFT : Gravity.RIGHT);
         wrapper.setGravity(message.isLeft() ? Gravity.LEFT : Gravity.RIGHT);
         return row;

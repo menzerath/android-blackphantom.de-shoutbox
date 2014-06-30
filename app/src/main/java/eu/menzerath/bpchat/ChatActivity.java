@@ -35,7 +35,6 @@ public class ChatActivity extends Activity {
     private Button mButton;
     private User mUser;
 
-    private boolean loadingMessages;
     private SharedPreferences prefs;
     private ScheduledExecutorService scheduler;
 
@@ -126,7 +125,6 @@ public class ChatActivity extends Activity {
         @Override
         protected void onPreExecute() {
             getActionBar().setSubtitle(getString(R.string.login_running));
-            setProgressBarVisibility(true);
         }
 
         @Override
@@ -141,7 +139,6 @@ public class ChatActivity extends Activity {
                 mInput.setEnabled(false);
                 mButton.setEnabled(false);
             }
-            setProgressBarVisibility(false);
         }
     }
 
@@ -149,7 +146,7 @@ public class ChatActivity extends Activity {
      * Lädt die letzten Nachrichten vom Server, insofern nicht gerade ein zweiter Task diese Aufgabe übernommen hat
      */
     private void loadMessages() {
-        if (loadingMessages) return;
+        if (mUser.isLoadingMessages()) return;
         UserLoadMessagesTask mUserLoadMessagesTask = new UserLoadMessagesTask(mUser);
         mUserLoadMessagesTask.execute((Void) null);
     }
@@ -173,7 +170,6 @@ public class ChatActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
-            loadingMessages = true;
             setProgressBarVisibility(true);
         }
 
@@ -208,7 +204,6 @@ public class ChatActivity extends Activity {
                 mAdapter.add(new ChatMessage(0, getString(R.string.app_message_user), new Date(), getString(R.string.get_messages_no_success) + mUser.getLastError(), true));
             }
             setProgressBarVisibility(false);
-            loadingMessages = false;
         }
     }
 
@@ -216,6 +211,8 @@ public class ChatActivity extends Activity {
      * Sendet eine Nachricht an den Server, falls die Anforderungen an diese erfüllt werden
      */
     private void sendMessage() {
+        if (!mUser.isLoggedIn() || mUser.isSendingMessage()) return;
+
         String message = mInput.getText().toString().trim();
         if (message.isEmpty()) {
             mInput.setError(getString(R.string.error_message_empty));
