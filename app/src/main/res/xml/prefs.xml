@@ -22,14 +22,19 @@
             android:title="@string/title_ui_autoReload" />
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="messageSound"
-            android:summary="@string/sum_ui_messageSound"
-            android:title="@string/title_ui_messageSound" />
-        <CheckBoxPreference
-            android:defaultValue="true"
             android:key="twoBubbles"
             android:summary="@string/sum_ui_twoBubbles"
             android:title="@string/title_ui_twoBubbles" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="showEmojis"
+            android:summary="@string/sum_ui_showEmojis"
+            android:title="@string/title_ui_showEmojis" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="messageSound"
+            android:summary="@string/sum_ui_messageSound"
+            android:title="@string/title_ui_messageSound" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/cat_bg">

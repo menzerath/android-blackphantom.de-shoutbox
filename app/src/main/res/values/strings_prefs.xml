@@ -8,11 +8,13 @@
 
     <string name="cat_ui">Oberfläche</string>
     <string name="title_ui_autoReload">Regelmäßig aktualisieren</string>
-    <string name="sum_ui_autoReload">Lädt regelmäßig die neuesten Nachrichten vom Server.\nBenötigt Neustart der App.</string>
-    <string name="title_ui_messageSound">Sound abspielen</string>
-    <string name="sum_ui_messageSound">Nervt dich mit einem \'Plöpp\', sobald eine neue Nachricht eingeht.</string>
+    <string name="sum_ui_autoReload">Lädt regelmäßig die neuesten Nachrichten vom Server.</string>
     <string name="title_ui_twoBubbles">Eigene Nachrichten abgrenzen</string>
     <string name="sum_ui_twoBubbles">Zeigt deine Nachrichten auf der rechten Seite an, die Nachrichten der anderen Nutzer auf der linken Seite.</string>
+    <string name="title_ui_showEmojis">Emojis anzeigen</string>
+    <string name="sum_ui_showEmojis">Zeigt statt den Zeichen ein Emoji an.\nBei Darstellungsfehlern diese Funktion deaktivieren.</string>
+    <string name="title_ui_messageSound">Sound abspielen</string>
+    <string name="sum_ui_messageSound">Nervt dich mit einem \"Plöpp!\", sobald eine neue Nachricht eingeht.</string>
 
     <string name="cat_bg">Hintergrundaktivitäten</string>
     <string name="title_bg_alwaysOn">Auf Nachrichten prüfen</string>

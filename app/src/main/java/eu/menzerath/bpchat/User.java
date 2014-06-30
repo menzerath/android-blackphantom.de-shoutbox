@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import eu.menzerath.bpchat.chat.ChatMessage;
+import eu.menzerath.bpchat.chat.Emoji;
 import eu.menzerath.bpchat.chat.Helper;
 
 /**
@@ -172,7 +173,12 @@ public class User {
                         ownMessage = true;
                     }
 
-                    messages.add(new ChatMessage(Integer.parseInt(key), messageData.getString(0), Helper.serverTimestampToDate(messageData.getString(1)), messageData.getString(2), !ownMessage));
+                    String message = messageData.getString(2);
+                    if (prefs.getBoolean("showEmojis", true)) {
+                        message = Emoji.replaceInText(message);
+                    }
+
+                    messages.add(new ChatMessage(Integer.parseInt(key), messageData.getString(0), Helper.serverTimestampToDate(messageData.getString(1)), message, !ownMessage));
                 }
                 Collections.sort(messages);
                 return messages;
