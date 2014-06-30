@@ -121,7 +121,7 @@ public class User {
             JSONObject json = new JSONObject(jsonResponse);
 
             if (json.getBoolean("success")) {
-                return json.getInt("payload");
+                return Integer.parseInt(json.getString("payload"));
             } else {
                 JSONArray errors = json.getJSONArray("errors");
                 lastError = "";
@@ -168,7 +168,7 @@ public class User {
                     JSONArray messageData = payloadData.getJSONArray(key);
 
                     boolean ownMessage = false;
-                    if (prefs.getBoolean("two_bubbles", true) && messageData.getString(0).equalsIgnoreCase(this.username)) {
+                    if (prefs.getBoolean("twoBubbles", true) && messageData.getString(0).equalsIgnoreCase(this.username)) {
                         ownMessage = true;
                     }
 

@@ -27,7 +27,7 @@
             android:title="@string/title_ui_messageSound" />
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="two_bubbles"
+            android:key="twoBubbles"
             android:summary="@string/sum_ui_twoBubbles"
             android:title="@string/title_ui_twoBubbles" />
     </PreferenceCategory>
