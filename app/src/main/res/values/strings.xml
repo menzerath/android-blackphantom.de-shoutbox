@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BlackPhantom.DE Shoutbox</string>
+    <string name="action_load">Nachrichten laden</string>
+    <string name="action_relogin">Erneut anmelden</string>
+    <string name="action_settings">Einstellungen</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cat_login">Zugangsdaten</string>
+    <string name="title_login_name">Nutzername</string>
+    <string name="sum_login_name">Dein Login-Name</string>
+    <string name="title_login_password">Passwort</string>
+    <string name="sum_login_password">Dein geheimes(!) Passwort</string>
+
+    <string name="cat_ui">Oberfläche</string>
+    <string name="title_ui_autoReload">Regelmäßig aktualisieren</string>
+    <string name="sum_ui_autoReload">Lädt regelmäßig die neuesten Nachrichten vom Server.\nBenötigt Neustart der App.</string>
+    <string name="title_ui_messageSound">Sound abspielen</string>
+    <string name="sum_ui_messageSound">Nervt dich mit einem \'Plöpp\', sobald eine neue Nachricht eingeht.</string>
+    <string name="title_ui_twoBubbles">Eigene Nachrichten abgrenzen</string>
+    <string name="sum_ui_twoBubbles">Zeigt deine Nachrichten auf der rechten Seite an, die Nachrichten der anderen Nutzer auf der linken Seite.</string>
+
+    <string name="cat_bg">Hintergrundaktivitäten</string>
+    <string name="title_bg_alwaysOn">Auf Nachrichten prüfen</string>
+    <string name="sum_bg_alwaysOn">Prüft auch bei geschlossener App regelmäßig auf neue Nachrichten und zeigt eine Benachrichtigung an.</string>
+    <string name="title_bg_alwaysOnMention">Nur bei Nennung benachrichtigen</string>
+    <string name="sum_bg_alwaysOnMention">Zeigt nur dann eine Benachrichtigung, wenn du in einer Nachricht erwähnt wurdest.</string>
+
+    <string name="cat_about">Über</string>
+    <string name="title_about_app">Diese App</string>
+    <string name="sum_about_app">BlackPhantom.DE Shoutbox - Version ???</string>
+    <string name="title_about_dev">Den Entwickler</string>
+    <string name="sum_about_dev">Marvin Menzerath - http://menzerath.eu</string>
+</resources>

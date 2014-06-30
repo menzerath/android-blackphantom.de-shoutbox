@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tv_message">Nachricht</string>
+    <string name="tv_sender">Absender - Uhrzeit</string>
+</resources>

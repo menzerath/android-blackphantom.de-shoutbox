@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_send">Senden</string>
+    <string name="editText_hint">Hier Ihre Post einwerfen…</string>
+    <string name="error_message_empty">Bitte eine Nachricht eingeben</string>
+    <string name="error_message_length">Diese Nachricht ist zu kurz (&lt; 2 Zeichen) oder zu lang (&gt; 2000 Zeichen)</string>
+
+    <string name="login_running">Anmeldung läuft…</string>
+    <string name="loggedin_as">Angemeldet als</string>
+    <string name="login_no">Nicht angemeldet</string>
+
+    <string name="login_no_success">Anmeldung nicht erfolgreich:\n</string>
+    <string name="get_messages_no_success">Nachrichten konnten nicht abgerufen werden:\n</string>
+    <string name="send_message_no_success">Nachricht konnte nicht versendet werden:\n</string>
+
+    <string name="app_message_user">Shoutbox</string>
+</resources>

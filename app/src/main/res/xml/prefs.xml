@@ -1,0 +1,60 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/cat_login">
+        <EditTextPreference
+            android:defaultValue=""
+            android:key="username"
+            android:summary="@string/sum_login_name"
+            android:title="@string/title_login_name" />
+        <EditTextPreference
+            android:defaultValue=""
+            android:inputType="textPassword"
+            android:key="password"
+            android:summary="@string/sum_login_password"
+            android:title="@string/title_login_password" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/cat_ui">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="autoReload"
+            android:summary="@string/sum_ui_autoReload"
+            android:title="@string/title_ui_autoReload" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="messageSound"
+            android:summary="@string/sum_ui_messageSound"
+            android:title="@string/title_ui_messageSound" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="two_bubbles"
+            android:summary="@string/sum_ui_twoBubbles"
+            android:title="@string/title_ui_twoBubbles" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/cat_bg">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="alwaysOn"
+            android:summary="@string/sum_bg_alwaysOn"
+            android:title="@string/title_bg_alwaysOn" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:dependency="alwaysOn"
+            android:key="alwaysOnMention"
+            android:summary="@string/sum_bg_alwaysOnMention"
+            android:title="@string/title_bg_alwaysOnMention" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/cat_about">
+        <Preference
+            android:key="aboutApp"
+            android:summary="@string/sum_about_app"
+            android:title="@string/title_about_app" />
+        <Preference
+            android:key="aboutDev"
+            android:summary="@string/sum_about_dev"
+            android:title="@string/title_about_dev" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
