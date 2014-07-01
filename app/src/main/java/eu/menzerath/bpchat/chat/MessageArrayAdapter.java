@@ -23,7 +23,7 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
     private List<ChatMessage> messages = new ArrayList<ChatMessage>(); // Liste mit den Chat-Nachrichten
 
     public MessageArrayAdapter(ChatActivity chatActivity, int textViewResourceId) {
-        super(chatActivity.getApplicationContext(), textViewResourceId);
+        super(chatActivity, textViewResourceId);
         this.chatActivity = chatActivity;
     }
 
