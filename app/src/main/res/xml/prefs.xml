@@ -17,11 +17,6 @@
     <PreferenceCategory android:title="@string/cat_ui">
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="autoReload"
-            android:summary="@string/sum_ui_autoReload"
-            android:title="@string/title_ui_autoReload" />
-        <CheckBoxPreference
-            android:defaultValue="true"
             android:key="twoBubbles"
             android:summary="@string/sum_ui_twoBubbles"
             android:title="@string/title_ui_twoBubbles" />
@@ -30,6 +25,22 @@
             android:key="showEmojis"
             android:summary="@string/sum_ui_showEmojis"
             android:title="@string/title_ui_showEmojis" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/cat_fg">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="autoReload"
+            android:summary="@string/sum_ui_autoReload"
+            android:title="@string/title_ui_autoReload" />
+        <ListPreference
+            android:defaultValue="10"
+            android:dependency="autoReload"
+            android:entries="@array/autoReloadInterval"
+            android:entryValues="@array/autoReloadIntervalValues"
+            android:key="autoReloadInterval"
+            android:summary="@string/sum_ui_autoReloadInterval"
+            android:title="@string/title_ui_autoReloadInterval" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="messageSound"
@@ -40,15 +51,23 @@
     <PreferenceCategory android:title="@string/cat_bg">
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="alwaysOn"
-            android:summary="@string/sum_bg_alwaysOn"
-            android:title="@string/title_bg_alwaysOn" />
+            android:key="autoReloadBackground"
+            android:summary="@string/sum_bg_autoReloadBackground"
+            android:title="@string/title_bg_autoReloadBackground" />
+        <ListPreference
+            android:defaultValue="60"
+            android:dependency="autoReloadBackground"
+            android:entries="@array/autoReloadInterval"
+            android:entryValues="@array/autoReloadIntervalValues"
+            android:key="autoReloadBackgroundInterval"
+            android:summary="@string/sum_ui_autoReloadInterval"
+            android:title="@string/title_ui_autoReloadInterval" />
         <CheckBoxPreference
             android:defaultValue="false"
-            android:dependency="alwaysOn"
-            android:key="alwaysOnMention"
-            android:summary="@string/sum_bg_alwaysOnMention"
-            android:title="@string/title_bg_alwaysOnMention" />
+            android:dependency="autoReloadBackground"
+            android:key="autoReloadBackgroundMention"
+            android:summary="@string/sum_bg_autoReloadBackgroundMention"
+            android:title="@string/title_bg_autoReloadBackgroundMention" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/cat_about">

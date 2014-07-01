@@ -7,24 +7,46 @@
     <string name="sum_login_password">Dein geheimes(!) Passwort</string>
 
     <string name="cat_ui">Oberfläche</string>
-    <string name="title_ui_autoReload">Regelmäßig aktualisieren</string>
-    <string name="sum_ui_autoReload">Lädt regelmäßig die neuesten Nachrichten vom Server.</string>
     <string name="title_ui_twoBubbles">Eigene Nachrichten abgrenzen</string>
     <string name="sum_ui_twoBubbles">Zeigt deine Nachrichten auf der rechten Seite an, die Nachrichten der anderen Nutzer auf der linken Seite.</string>
     <string name="title_ui_showEmojis">Emojis anzeigen</string>
     <string name="sum_ui_showEmojis">Zeigt statt den Zeichen ein Emoji an.\nBei Darstellungsfehlern diese Funktion deaktivieren.</string>
+
+    <string name="cat_fg">Regelmäßige Aktualisierung</string>
+    <string name="title_ui_autoReload">Regelmäßig aktualisieren</string>
+    <string name="sum_ui_autoReload">Lädt regelmäßig die neuesten Nachrichten vom Server.</string>
+    <string name="title_ui_autoReloadInterval">Intervall</string>
+    <string name="sum_ui_autoReloadInterval">Wie häufig sollen Nachrichten abgerufen werden?</string>
     <string name="title_ui_messageSound">Sound abspielen</string>
     <string name="sum_ui_messageSound">Nervt dich mit einem \"Plöpp!\", sobald eine neue Nachricht eingeht.</string>
 
-    <string name="cat_bg">Hintergrundaktivitäten</string>
-    <string name="title_bg_alwaysOn">Auf Nachrichten prüfen</string>
-    <string name="sum_bg_alwaysOn">Prüft auch bei geschlossener App regelmäßig auf neue Nachrichten und zeigt eine Benachrichtigung an.</string>
-    <string name="title_bg_alwaysOnMention">Nur bei Nennung benachrichtigen</string>
-    <string name="sum_bg_alwaysOnMention">Zeigt nur dann eine Benachrichtigung, wenn du in einer Nachricht erwähnt wurdest.</string>
+    <string name="cat_bg">Regelmäßige Aktualisierung (Hintergrund)</string>
+    <string name="title_bg_autoReloadBackground">Auf Nachrichten prüfen</string>
+    <string name="sum_bg_autoReloadBackground">Prüft auch bei geschlossener App regelmäßig auf neue Nachrichten und zeigt eine Benachrichtigung an.</string>
+    <string name="title_bg_autoReloadBackgroundMention">Nur bei Nennung benachrichtigen</string>
+    <string name="sum_bg_autoReloadBackgroundMention">Zeigt nur dann eine Benachrichtigung, wenn du in einer Nachricht erwähnt wurdest.</string>
 
     <string name="cat_about">Über</string>
     <string name="title_about_app">Diese App</string>
     <string name="sum_about_app">BlackPhantom.DE Shoutbox - Version ???</string>
     <string name="title_about_dev">Den Entwickler</string>
     <string name="sum_about_dev">Marvin Menzerath - http://menzerath.eu</string>
+
+    <string-array name="autoReloadInterval">
+        <item name="5">Alle 5 Sekunden</item>
+        <item name="10">Alle 10 Sekunden</item>
+        <item name="30">Alle 30 Sekunden</item>
+        <item name="60">Jede Minute</item>
+        <item name="300">Alle 5 Minuten</item>
+        <item name="600">Alle 10 Minuten</item>
+    </string-array>
+
+    <string-array name="autoReloadIntervalValues">
+        <item name="5">5</item>
+        <item name="10">10</item>
+        <item name="30">30</item>
+        <item name="60">60</item>
+        <item name="300">300</item>
+        <item name="600">600</item>
+    </string-array>
 </resources>

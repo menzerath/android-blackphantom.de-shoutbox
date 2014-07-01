@@ -281,7 +281,7 @@ public class ChatActivity extends Activity {
                         }
                     });
                 }
-            }, 0, 10, TimeUnit.SECONDS);
+            }, 0, Integer.parseInt(prefs.getString("autoReloadInterval", "10")), TimeUnit.SECONDS);
         }
         super.onResume();
     }
