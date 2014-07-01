@@ -150,7 +150,7 @@ public class ChatActivity extends Activity {
      * Lädt die letzten Nachrichten vom Server, insofern nicht gerade ein zweiter Task diese Aufgabe übernommen hat
      */
     private void loadMessages() {
-        if (mUser.isLoadingMessages()) return;
+        if (!mUser.isLoggedIn() || mUser.isLoadingMessages()) return;
         UserLoadMessagesTask mUserLoadMessagesTask = new UserLoadMessagesTask(mUser);
         mUserLoadMessagesTask.execute((Void) null);
     }
@@ -345,7 +345,7 @@ public class ChatActivity extends Activity {
                         }
                     });
                 }
-            }, 0, Integer.parseInt(prefs.getString("autoReloadInterval", "10")), TimeUnit.SECONDS);
+            }, 1, Integer.parseInt(prefs.getString("autoReloadInterval", "10")), TimeUnit.SECONDS);
         }
         super.onResume();
     }
