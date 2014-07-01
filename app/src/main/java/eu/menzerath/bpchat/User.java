@@ -150,7 +150,7 @@ public class User {
     /**
      * Ruft die letzten Nachrichten vom Server ab
      *
-     * @return Die 100 letzten Nachrichten
+     * @return Die X letzten Nachrichten
      */
     public ArrayList<ChatMessage> getMessages() {
         isLoadingMessages = true;
@@ -159,7 +159,7 @@ public class User {
         HttpPost httppost = new HttpPost(GET_MESSAGES_URL);
         try {
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-            nameValuePairs.add(new BasicNameValuePair("limit", "100"));
+            nameValuePairs.add(new BasicNameValuePair("limit", prefs.getString("maxMessages", "100")));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 
             HttpResponse response = httpclient.execute(httppost, localContext);

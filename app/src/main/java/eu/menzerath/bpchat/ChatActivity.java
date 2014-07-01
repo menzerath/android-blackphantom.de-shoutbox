@@ -178,7 +178,7 @@ public class ChatActivity extends Activity {
             if (messages != null) {
                 try {
                     // Spiele einen Sound ab, falls die ID der letzten angezeigten Nachricht nicht der ID der letzten heruntergeladenen Nachricht entspricht
-                    if ((messages.get(99).getId() != mAdapter.getItem(mAdapter.getCount() - 1).getId()) && prefs.getBoolean("messageSound", true)) {
+                    if ((messages.get(messages.size() - 1).getId() != mAdapter.getItem(mAdapter.getCount() - 1).getId()) && prefs.getBoolean("messageSound", true)) {
                         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.message_sound);
                         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                             @Override

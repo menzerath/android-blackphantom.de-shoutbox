@@ -15,6 +15,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/cat_ui">
+        <ListPreference
+            android:defaultValue="100"
+            android:entries="@array/maxMessages"
+            android:entryValues="@array/maxMessages"
+            android:key="maxMessages"
+            android:summary="@string/sum_ui_maxMessages"
+            android:title="@string/title_ui_maxMessages" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="twoBubbles"
@@ -43,6 +50,7 @@
             android:title="@string/title_ui_autoReloadInterval" />
         <CheckBoxPreference
             android:defaultValue="true"
+            android:dependency="autoReload"
             android:key="messageSound"
             android:summary="@string/sum_ui_messageSound"
             android:title="@string/title_ui_messageSound" />
