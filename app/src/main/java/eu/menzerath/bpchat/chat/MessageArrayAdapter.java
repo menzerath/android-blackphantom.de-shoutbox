@@ -60,11 +60,18 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         tvTime.setText(Helper.formatDateToString(message.getTime()));
         tvMessage.setText(chatActivity.getPrefs().getBoolean("showEmojis", true) ? Emoji.replaceInText(message.getMessage()) : message.getMessage());
 
-        // Blase links: weiß
-        // Blase rechts: grün
+        // Anpassung der Blasen für besseren Look
         messageBubble.setBackgroundResource(message.isLeft() ? R.drawable.bubble_left : R.drawable.bubble_right);
         messageBubble.setGravity(message.isLeft() ? Gravity.LEFT : Gravity.RIGHT);
         wrapper.setGravity(message.isLeft() ? Gravity.LEFT : Gravity.RIGHT);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        if (message.isLeft()) {
+            params.setMargins(3, 3, 14, 3);
+        } else {
+            params.setMargins(14, 3, 3, 3);
+        }
+        messageBubble.setLayoutParams(params);
         return row;
     }
 
