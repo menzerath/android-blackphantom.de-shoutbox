@@ -35,7 +35,7 @@ public class ChatActivity extends Activity {
     private Button mButton;
     private User mUser;
 
-    private static SharedPreferences prefs;
+    private SharedPreferences prefs;
     private ScheduledExecutorService scheduler;
 
     @Override
@@ -312,7 +312,11 @@ public class ChatActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static SharedPreferences getPrefs() {
+    public User getUser() {
+        return mUser;
+    }
+
+    public SharedPreferences getPrefs() {
         return prefs;
     }
 }

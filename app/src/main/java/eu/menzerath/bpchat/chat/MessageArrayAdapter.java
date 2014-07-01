@@ -19,10 +19,12 @@ import eu.menzerath.bpchat.R;
  * Der Adapter für das ListView, welches die Nachrichten anzeigt
  */
 public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
+    private ChatActivity chatActivity;
     private List<ChatMessage> messages = new ArrayList<ChatMessage>(); // Liste mit den Chat-Nachrichten
 
-    public MessageArrayAdapter(Context context, int textViewResourceId) {
-        super(context, textViewResourceId);
+    public MessageArrayAdapter(ChatActivity chatActivity, int textViewResourceId) {
+        super(chatActivity.getApplicationContext(), textViewResourceId);
+        this.chatActivity = chatActivity;
     }
 
     @Override
@@ -54,9 +56,9 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         TextView tvMessage = (TextView) row.findViewById(R.id.message);
 
         // Setzt den Absender + Zeitpunkt / Nachricht
-        tvFrom.setText(message.getFrom());
+        tvFrom.setText(message.getFrom().equalsIgnoreCase(chatActivity.getUser().username) && chatActivity.getPrefs().getBoolean("twoBubbles", true) ? "" : message.getFrom());
         tvTime.setText(Helper.formatDateToString(message.getTime()));
-        tvMessage.setText(ChatActivity.getPrefs().getBoolean("showEmojis", true) ? Emoji.replaceInText(message.getMessage()) : message.getMessage());
+        tvMessage.setText(chatActivity.getPrefs().getBoolean("showEmojis", true) ? Emoji.replaceInText(message.getMessage()) : message.getMessage());
 
         // Blase links: weiß
         // Blase rechts: grün
