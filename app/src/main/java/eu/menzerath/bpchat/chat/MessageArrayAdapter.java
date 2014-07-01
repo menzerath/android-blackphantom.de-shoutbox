@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.menzerath.bpchat.ChatActivity;
 import eu.menzerath.bpchat.R;
 
 /**
@@ -55,7 +56,7 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         // Setzt den Absender + Zeitpunkt / Nachricht
         tvFrom.setText(message.getFrom());
         tvTime.setText(Helper.formatDateToString(message.getTime()));
-        tvMessage.setText(message.getMessage());
+        tvMessage.setText(ChatActivity.getPrefs().getBoolean("showEmojis", true) ? Emoji.replaceInText(message.getMessage()) : message.getMessage());
 
         // Blase links: weiß
         // Blase rechts: grün
