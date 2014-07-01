@@ -3,7 +3,7 @@
     tools:context=".ChatActivity">
     <item
         android:id="@+id/action_reload"
-        android:icon="@android:drawable/ic_menu_rotate"
+        android:icon="@drawable/ic_action_refresh"
         android:orderInCategory="1"
         android:showAsAction="ifRoom"
         android:title="@string/action_load" />
