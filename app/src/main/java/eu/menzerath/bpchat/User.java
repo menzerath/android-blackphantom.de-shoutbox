@@ -33,11 +33,13 @@ import eu.menzerath.bpchat.chat.Helper;
  */
 public class User {
     //private static final String LOGIN_URL = "https://blacky.pf-control.de/chat/api/authentication.php";
-    //private static final String SEND_MESSAGE_URL = "https://blacky.pf-control.de/chat/api/sendMessage.php";
     //private static final String GET_MESSAGES_URL = "https://blacky.pf-control.de/chat/api/loadLastMessages.php";
+    //private static final String SEND_MESSAGE_URL = "https://blacky.pf-control.de/chat/api/sendMessage.php";
+    //private static final String GET_USERS_URL = "https://blacky.pf-control.de/chat/pi/onlineusers.php";
     private static final String LOGIN_URL = "http://chat.blackphantom.de/api/authentication.php";
-    private static final String SEND_MESSAGE_URL = "http://chat.blackphantom.de/api/sendMessage.php";
     private static final String GET_MESSAGES_URL = "http://chat.blackphantom.de/api/loadLastMessages.php";
+    private static final String SEND_MESSAGE_URL = "http://chat.blackphantom.de/api/sendMessage.php";
+    private static final String GET_USERS_URL = "http://chat.blackphantom.de/api/onlineusers.php";
 
     private final SharedPreferences prefs;
     public final String username;
@@ -48,6 +50,7 @@ public class User {
     private boolean isLoggedIn;
     private boolean isLoadingMessages;
     private boolean isSendingMessage;
+    private boolean isLoadingUsers;
 
     /**
      * Konstruktor des Nutzers
@@ -107,47 +110,6 @@ public class User {
     }
 
     /**
-     * Sendet eine Nachricht an den Server
-     *
-     * @param message Nachricht
-     * @return Ob der Sendevorgang erfolgreich war
-     */
-    public int sendMessage(String message) {
-        isSendingMessage = true;
-
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost(SEND_MESSAGE_URL);
-        try {
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-            nameValuePairs.add(new BasicNameValuePair("body", message.trim()));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
-
-            HttpResponse response = httpclient.execute(httppost, localContext);
-
-            HttpEntity entity = response.getEntity();
-            String jsonResponse = EntityUtils.toString(entity, "UTF-8");
-
-            JSONObject json = new JSONObject(jsonResponse);
-
-            if (json.getBoolean("success")) {
-                isSendingMessage = false;
-                return Integer.parseInt(json.getString("payload"));
-            } else {
-                JSONArray errors = json.getJSONArray("errors");
-                lastError = "";
-
-                for (int i = 0; i < errors.length(); i++) {
-                    lastError += errors.getString(i);
-                }
-            }
-        } catch (Exception e) {
-            lastError = e.getMessage();
-        }
-        isSendingMessage = false;
-        return 0;
-    }
-
-    /**
      * Ruft die letzten Nachrichten vom Server ab
      *
      * @return Die X letzten Nachrichten
@@ -204,6 +166,84 @@ public class User {
         return null;
     }
 
+    /**
+     * Sendet eine Nachricht an den Server
+     *
+     * @param message Nachricht
+     * @return Ob der Sendevorgang erfolgreich war
+     */
+    public int sendMessage(String message) {
+        isSendingMessage = true;
+
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost(SEND_MESSAGE_URL);
+        try {
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+            nameValuePairs.add(new BasicNameValuePair("body", message.trim()));
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+
+            HttpResponse response = httpclient.execute(httppost, localContext);
+
+            HttpEntity entity = response.getEntity();
+            String jsonResponse = EntityUtils.toString(entity, "UTF-8");
+
+            JSONObject json = new JSONObject(jsonResponse);
+
+            if (json.getBoolean("success")) {
+                isSendingMessage = false;
+                return Integer.parseInt(json.getString("payload"));
+            } else {
+                JSONArray errors = json.getJSONArray("errors");
+                lastError = "";
+
+                for (int i = 0; i < errors.length(); i++) {
+                    lastError += errors.getString(i);
+                }
+            }
+        } catch (Exception e) {
+            lastError = e.getMessage();
+        }
+        isSendingMessage = false;
+        return 0;
+    }
+
+    /**
+     * Gibt die gerade eingeloggten User an
+     *
+     * @return Aktuelle eingeloggte User
+     */
+    public String getOnlineUsers() {
+        isLoadingUsers = true;
+
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost(GET_USERS_URL);
+        try {
+            HttpResponse response = httpclient.execute(httppost, localContext);
+
+            HttpEntity entity = response.getEntity();
+            String jsonResponse = EntityUtils.toString(entity, "UTF-8");
+
+            JSONObject json = new JSONObject(jsonResponse);
+
+            if (json.getBoolean("success")) {
+                JSONArray payloadData = json.getJSONArray("payload");
+                isLoadingUsers = false;
+                return payloadData.toString();
+            } else {
+                JSONArray errors = json.getJSONArray("errors");
+                lastError = "";
+
+                for (int i = 0; i < errors.length(); i++) {
+                    lastError += errors.getString(i);
+                }
+            }
+        } catch (Exception e) {
+            lastError = e.getMessage();
+        }
+        isLoadingUsers = false;
+        return null;
+    }
+
     public boolean isLoggedIn() {
         return isLoggedIn;
     }
@@ -214,6 +254,10 @@ public class User {
 
     public boolean isSendingMessage() {
         return isSendingMessage;
+    }
+
+    public boolean isLoadingUsers() {
+        return isLoadingUsers;
     }
 
     public String getLastError() {

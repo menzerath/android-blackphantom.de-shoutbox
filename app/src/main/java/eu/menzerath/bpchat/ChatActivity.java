@@ -1,6 +1,9 @@
 package eu.menzerath.bpchat;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -16,6 +19,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -268,6 +272,66 @@ public class ChatActivity extends Activity {
         }
     }
 
+    /**
+     * Lädt die gerade eingeloggten User vom Server, insofern nicht gerade ein zweiter Task diese Aufgabe übernommen hat
+     */
+    private void showOnlineUsers() {
+        if (mUser.isLoadingUsers()) return;
+        UserLoadUsersTask mUserLoadUsersTask = new UserLoadUsersTask(mUser);
+        mUserLoadUsersTask.execute((Void) null);
+    }
+
+    /**
+     * Asynchone Aufgabe, damit das UI nicht "hängenbleibt"
+     */
+    public class UserLoadUsersTask extends AsyncTask<Void, Void, Boolean> {
+        private final User mUser;
+        private ProgressDialog mProgressDialog;
+        private String users;
+
+        UserLoadUsersTask(User user) {
+            mUser = user;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            users = mUser.getOnlineUsers();
+            return true;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(ChatActivity.this);
+            mProgressDialog.setTitle(getString(R.string.progressDialog_title));
+            mProgressDialog.setMessage(getString(R.string.progressDialog_message));
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            mProgressDialog.cancel();
+
+            if (users != null) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChatActivity.this);
+                alertDialogBuilder.setTitle(getString(R.string.onlineUsers_title));
+                alertDialogBuilder
+                        .setMessage(users.replace("\",\"", ", ").replace("[\"", "").replace("\"]", ""))
+                        .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            } else {
+                // Fehler-Nachricht, falls keine User abgerufen werden konnten
+                Toast.makeText(ChatActivity.this, getString(R.string.onlineUsers_error), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     @Override
     protected void onResume() {
         // Falls in den Einstellungen aktiviert, starte eine regelmäßige Aufgabe, die die Nachrichten abruft
@@ -304,6 +368,8 @@ public class ChatActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_reload) {
             loadMessages();
+        } else if (id == R.id.action_users) {
+            showOnlineUsers();
         } else if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.action_relogin) {

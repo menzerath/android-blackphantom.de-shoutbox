@@ -13,5 +13,10 @@
     <string name="get_messages_no_success">Nachrichten konnten nicht abgerufen werden:\n</string>
     <string name="send_message_no_success">Nachricht konnte nicht versendet werden:\n</string>
 
+    <string name="progressDialog_title">Lade Daten...</string>
+    <string name="progressDialog_message">Bitte warten, während die Daten geladen werden.</string>
+    <string name="onlineUsers_title">Angemeldete User</string>
+    <string name="onlineUsers_error">Es konnten keine Daten abgerufen werden</string>
+
     <string name="app_message_user">Shoutbox</string>
 </resources>
