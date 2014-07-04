@@ -1,6 +1,8 @@
 package eu.menzerath.bpchat.chat;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.SpannedString;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +60,7 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         // Setzt den Absender + Zeitpunkt / Nachricht
         tvFrom.setText(message.getFrom().equalsIgnoreCase(chatActivity.getUser().username) && chatActivity.getPrefs().getBoolean("twoBubbles", true) ? "" : message.getFrom());
         tvTime.setText(Helper.formatDateToString(message.getTime()));
-        tvMessage.setText(chatActivity.getPrefs().getBoolean("showEmojis", true) ? Emoji.replaceInText(message.getMessage()) : message.getMessage());
+        tvMessage.setText(prepareMessage(message.getMessage()));
 
         // Anpassung der Blasen für besseren Look
         messageBubble.setBackgroundResource(message.isLeft() ? R.drawable.bubble_left : R.drawable.bubble_right);
@@ -73,6 +75,18 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         }
         messageBubble.setLayoutParams(params);
         return row;
+    }
+
+    private SpannedString prepareMessage(String rawMessage) {
+        if (chatActivity.getPrefs().getBoolean("showEmojis", true)) {
+            rawMessage = Emoji.replaceInText(rawMessage);
+        }
+
+        if (rawMessage.contains("@" + chatActivity.getPrefs().getString("username", ""))) {
+            rawMessage = rawMessage.replaceAll("(?i)@" + chatActivity.getPrefs().getString("username", ""), "<b>$0</b>");
+        }
+
+        return new SpannedString(Html.fromHtml(rawMessage));
     }
 
     public ChatMessage getItem(int index) {
