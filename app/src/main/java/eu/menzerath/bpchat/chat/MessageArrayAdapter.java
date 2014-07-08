@@ -58,9 +58,12 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         TextView tvMessage = (TextView) row.findViewById(R.id.message);
 
         // Setzt den Absender + Zeitpunkt / Nachricht
-        tvFrom.setText(message.getFrom().equalsIgnoreCase(chatActivity.getUser().username) && chatActivity.getPrefs().getBoolean("twoBubbles", true) ? "" : message.getFrom());
+        tvFrom.setText(message.getFrom());
         tvTime.setText(Helper.formatDateToString(message.getTime()));
         tvMessage.setText(prepareMessage(message.getMessage()));
+
+        if (message.getFrom().equalsIgnoreCase(chatActivity.getUser().username) && !message.isLeft())
+            tvFrom.setText(""); // "tvFrom.setVisibility(View.GONE);" funktioniert nicht korrekt!
 
         // Anpassung der Blasen für besseren Look
         messageBubble.setBackgroundResource(message.isLeft() ? R.drawable.bubble_left : R.drawable.bubble_right);
