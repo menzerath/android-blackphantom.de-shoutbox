@@ -146,7 +146,7 @@ public class User {
                         ownMessage = true;
                     }
 
-                    messages.add(new ChatMessage(Integer.parseInt(key), messageData.getString(0), Helper.serverTimestampToDate(messageData.getString(1)), messageData.getString(2).replace("[via API]: ", ""), !ownMessage));
+                    messages.add(new ChatMessage(Integer.parseInt(key), messageData.getString(0), Helper.serverTimestampToDate(messageData.getString(1)), messageData.getString(2), !ownMessage));
                 }
                 Collections.sort(messages);
                 isLoadingMessages = false;
