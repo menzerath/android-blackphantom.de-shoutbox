@@ -56,8 +56,11 @@
         android:layout_marginTop="1.5dip"
         android:layout_toLeftOf="@+id/button"
         android:enabled="false"
+        android:gravity="top|left"
         android:hint="@string/editText_hint"
-        android:inputType="textShortMessage" />
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLines="3"
+        android:scrollbars="vertical" />
 
     <Button
         android:id="@+id/button"
