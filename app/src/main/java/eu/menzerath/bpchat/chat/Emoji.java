@@ -22,40 +22,9 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class Emoji {
-    private static final String REGEX_CLASS_SPECIAL_CHARS = "[-_)(;:*<>=/]";
+    private static final String REGEX_CLASS_SPECIAL_CHARS = "[-_)(;:*<>=/A-Za-z0-9]";
     private static final String REGEX_NEGATIVE_LOOKBEHIND = "(?<!" + REGEX_CLASS_SPECIAL_CHARS + ")";
     private static final String REGEX_NEGATIVE_LOOKAHEAD = "(?!" + REGEX_CLASS_SPECIAL_CHARS + ")";
-
-    private static class ReplacementsMap extends HashMap<String, Integer> {
-        private static ReplacementsMap mInstance;
-
-        private ReplacementsMap() {
-            super();
-            put(":)", 0x1F604);
-            put(";)", 0x1F609);
-            put(":(", 0x1F61E);
-            put(":D", 0x1F603);
-            put(":'D", 0x1F602);
-            put(":P", 0x1F61C);
-            put(":O", 0x1F628);
-            put(":3", 0x1F60A);
-            put(":*", 0x1F618);
-            put(":/", 0x1F612);
-            put("<3", 0x2764);
-            put("xD", 0x1F601);
-            put("^^", 0x1F606);
-            put("o.O", 0x1F627);
-            put("*_*", 0x1F60D);
-            put("-_-", 0x1F611);
-            put(">:[", 0x1F621);
-            put(":y:", 0x1F44D);
-        }
-
-        public static ReplacementsMap getInstance() {
-            if (mInstance == null) mInstance = new ReplacementsMap();
-            return mInstance;
-        }
-    }
 
     private static String getUnicodeChar(int codepoint) {
         return new String(Character.toChars(codepoint));
@@ -89,5 +58,38 @@ public class Emoji {
             text = replaceEmoticon(text, emoticon);
         }
         return text;
+    }
+
+    private static class ReplacementsMap extends HashMap<String, Integer> {
+        private static ReplacementsMap mInstance;
+
+        private ReplacementsMap() {
+            super();
+            put(":)", 0x1F604);
+            put(";)", 0x1F609);
+            put(":(", 0x1F61E);
+            put(":D", 0x1F603);
+            put(":'D", 0x1F602);
+            put(":P", 0x1F61C);
+            put(":O", 0x1F628);
+            put(":3", 0x1F60A);
+            put(":*", 0x1F618);
+            put(":/", 0x1F612);
+            put("<3", 0x2764);
+            put("xD", 0x1F601);
+            put("XD", 0x1F601);
+            put("^^", 0x1F606);
+            put("o.O", 0x1F627);
+            put("*_*", 0x1F60D);
+            put("-_-", 0x1F611);
+            put("-.-", 0x1F611);
+            put(">:[", 0x1F621);
+            put(":y:", 0x1F44D);
+        }
+
+        public static ReplacementsMap getInstance() {
+            if (mInstance == null) mInstance = new ReplacementsMap();
+            return mInstance;
+        }
     }
 }

@@ -25,8 +25,8 @@
     <string name="cat_bg">Regelmäßige Aktualisierung (Hintergrund)</string>
     <string name="title_bg_autoReloadBackground">Auf Nachrichten prüfen</string>
     <string name="sum_bg_autoReloadBackground">Prüft auch bei geschlossener App regelmäßig auf neue Nachrichten und zeigt eine Benachrichtigung an.</string>
-    <string name="title_bg_autoReloadBackgroundMention">Nur bei Nennung benachrichtigen</string>
-    <string name="sum_bg_autoReloadBackgroundMention">Zeigt nur dann eine Benachrichtigung, wenn du in einer Nachricht erwähnt wurdest.</string>
+    <string name="title_bg_autoReloadBackgroundMention">Bei Nennung benachrichtigen</string>
+    <string name="sum_bg_autoReloadBackgroundMention">Zeigt eine Benachrichtigung an, wenn du in einer Nachricht erwähnt wurdest.</string>
 
     <string name="cat_about">Über</string>
     <string name="title_about_app">Diese App</string>

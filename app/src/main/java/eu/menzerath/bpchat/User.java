@@ -40,10 +40,9 @@ public class User {
     private static final String GET_MESSAGES_URL = "http://chat.blackphantom.de/api/loadLastMessages.php";
     private static final String SEND_MESSAGE_URL = "http://chat.blackphantom.de/api/sendMessage.php";
     private static final String GET_USERS_URL = "http://chat.blackphantom.de/api/onlineusers.php";
-
-    private final SharedPreferences prefs;
     public final String username;
     public final String password;
+    private final SharedPreferences prefs;
     private HttpContext localContext;
 
     private String lastError;

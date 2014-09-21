@@ -12,7 +12,9 @@
         android:layout_margin="2dip"
         android:background="@drawable/bubble_left"
         android:orientation="vertical"
-        android:paddingLeft="12dip">
+        android:paddingEnd="12dip"
+        android:paddingLeft="12dip"
+        android:paddingStart="12dip">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -22,6 +24,7 @@
                 android:id="@+id/from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dip"
                 android:layout_marginRight="5dip"
                 android:text="@string/tv_sender"
                 android:textColor="@android:color/primary_text_light"

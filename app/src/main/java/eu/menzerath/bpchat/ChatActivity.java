@@ -112,6 +112,97 @@ public class ChatActivity extends Activity {
     }
 
     /**
+     * Lädt die letzten Nachrichten vom Server, insofern nicht gerade ein zweiter Task diese Aufgabe übernommen hat
+     */
+    private void loadMessages() {
+        if (!mUser.isLoggedIn() || mUser.isLoadingMessages()) return;
+        UserLoadMessagesTask mUserLoadMessagesTask = new UserLoadMessagesTask(mUser);
+        mUserLoadMessagesTask.execute((Void) null);
+    }
+
+    /**
+     * Sendet eine Nachricht an den Server, falls die Anforderungen an diese erfüllt werden
+     */
+    private void sendMessage() {
+        if (!mUser.isLoggedIn() || mUser.isSendingMessage()) return;
+
+        String message = mInput.getText().toString().trim();
+        if (message.isEmpty()) {
+            mInput.setError(getString(R.string.error_message_empty));
+            mInput.requestFocus();
+        } else if (message.length() < 2 || message.length() > 2000) {
+            mInput.setError(getString(R.string.error_message_length));
+            mInput.requestFocus();
+        } else {
+            UserSendMessageTask mUserSendMessageTask = new UserSendMessageTask(mUser, message);
+            mUserSendMessageTask.execute((Void) null);
+        }
+    }
+
+    /**
+     * Lädt die gerade eingeloggten User vom Server, insofern nicht gerade ein zweiter Task diese Aufgabe übernommen hat
+     */
+    private void showOnlineUsers() {
+        if (mUser.isLoadingUsers()) return;
+        UserLoadUsersTask mUserLoadUsersTask = new UserLoadUsersTask(mUser);
+        mUserLoadUsersTask.execute((Void) null);
+    }
+
+    @Override
+    protected void onResume() {
+        // Falls in den Einstellungen aktiviert, starte eine regelmäßige Aufgabe, die die Nachrichten abruft
+        if (prefs.getBoolean("autoReload", true)) {
+            scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.scheduleAtFixedRate(new Runnable() {
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            loadMessages();
+                        }
+                    });
+                }
+            }, 1, Integer.parseInt(prefs.getString("autoReloadInterval", "10")), TimeUnit.SECONDS);
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        // Nachrichten nicht mehr automatisch abrufen
+        scheduler.shutdown();
+        super.onPause();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.chat, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_reload) {
+            loadMessages();
+        } else if (id == R.id.action_users) {
+            showOnlineUsers();
+        } else if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        } else if (id == R.id.action_relogin) {
+            doLogin();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public SharedPreferences getPrefs() {
+        return prefs;
+    }
+
+    /**
      * Asynchone Aufgabe, damit das UI nicht "hängenbleibt"
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -144,15 +235,6 @@ public class ChatActivity extends Activity {
                 mButton.setEnabled(false);
             }
         }
-    }
-
-    /**
-     * Lädt die letzten Nachrichten vom Server, insofern nicht gerade ein zweiter Task diese Aufgabe übernommen hat
-     */
-    private void loadMessages() {
-        if (!mUser.isLoggedIn() || mUser.isLoadingMessages()) return;
-        UserLoadMessagesTask mUserLoadMessagesTask = new UserLoadMessagesTask(mUser);
-        mUserLoadMessagesTask.execute((Void) null);
     }
 
     /**
@@ -212,25 +294,6 @@ public class ChatActivity extends Activity {
     }
 
     /**
-     * Sendet eine Nachricht an den Server, falls die Anforderungen an diese erfüllt werden
-     */
-    private void sendMessage() {
-        if (!mUser.isLoggedIn() || mUser.isSendingMessage()) return;
-
-        String message = mInput.getText().toString().trim();
-        if (message.isEmpty()) {
-            mInput.setError(getString(R.string.error_message_empty));
-            mInput.requestFocus();
-        } else if (message.length() < 2 || message.length() > 2000) {
-            mInput.setError(getString(R.string.error_message_length));
-            mInput.requestFocus();
-        } else {
-            UserSendMessageTask mUserSendMessageTask = new UserSendMessageTask(mUser, message);
-            mUserSendMessageTask.execute((Void) null);
-        }
-    }
-
-    /**
      * Asynchone Aufgabe, damit das UI nicht "hängenbleibt"
      */
     public class UserSendMessageTask extends AsyncTask<Void, Void, Boolean> {
@@ -270,15 +333,6 @@ public class ChatActivity extends Activity {
             mButton.setEnabled(true);
             setProgressBarVisibility(false);
         }
-    }
-
-    /**
-     * Lädt die gerade eingeloggten User vom Server, insofern nicht gerade ein zweiter Task diese Aufgabe übernommen hat
-     */
-    private void showOnlineUsers() {
-        if (mUser.isLoadingUsers()) return;
-        UserLoadUsersTask mUserLoadUsersTask = new UserLoadUsersTask(mUser);
-        mUserLoadUsersTask.execute((Void) null);
     }
 
     /**
@@ -330,59 +384,5 @@ public class ChatActivity extends Activity {
                 Toast.makeText(ChatActivity.this, getString(R.string.onlineUsers_error), Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    @Override
-    protected void onResume() {
-        // Falls in den Einstellungen aktiviert, starte eine regelmäßige Aufgabe, die die Nachrichten abruft
-        if (prefs.getBoolean("autoReload", true)) {
-            scheduler = Executors.newSingleThreadScheduledExecutor();
-            scheduler.scheduleAtFixedRate(new Runnable() {
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            loadMessages();
-                        }
-                    });
-                }
-            }, 1, Integer.parseInt(prefs.getString("autoReloadInterval", "10")), TimeUnit.SECONDS);
-        }
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        // Nachrichten nicht mehr automatisch abrufen
-        scheduler.shutdown();
-        super.onPause();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.chat, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_reload) {
-            loadMessages();
-        } else if (id == R.id.action_users) {
-            showOnlineUsers();
-        } else if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-        } else if (id == R.id.action_relogin) {
-            doLogin();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public User getUser() {
-        return mUser;
-    }
-
-    public SharedPreferences getPrefs() {
-        return prefs;
     }
 }
