@@ -238,7 +238,7 @@ public class ChatActivity extends Activity {
     }
 
     /**
-     * Asynchone Aufgabe, damit das UI nicht "hängenbleibt"
+     * Asynchrone Aufgabe, damit das UI nicht "hängenbleibt"
      */
     public class UserLoadMessagesTask extends AsyncTask<Void, Void, Boolean> {
         private final User mUser;
