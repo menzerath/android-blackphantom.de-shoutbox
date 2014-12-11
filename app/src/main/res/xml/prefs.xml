@@ -24,11 +24,6 @@
             android:title="@string/title_ui_maxMessages" />
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="twoBubbles"
-            android:summary="@string/sum_ui_twoBubbles"
-            android:title="@string/title_ui_twoBubbles" />
-        <CheckBoxPreference
-            android:defaultValue="true"
             android:key="showEmojis"
             android:summary="@string/sum_ui_showEmojis"
             android:title="@string/title_ui_showEmojis" />

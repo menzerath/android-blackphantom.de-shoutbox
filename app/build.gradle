@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
-
 android {
-    compileSdkVersion 'android-20'
+    compileSdkVersion 21
     buildToolsVersion "21.1.1"
 
     defaultConfig {
@@ -11,10 +10,13 @@ android {
         versionCode 1
         versionName "1.0 Beta 8"
     }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
     }
+}
+dependencies {
 }

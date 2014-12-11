@@ -11,14 +11,14 @@ public class ChatMessage implements Comparable<ChatMessage> {
     private final String from;
     private final Date time;
     private final String message;
-    private final boolean left;
+    private final boolean ownMessage;
 
-    public ChatMessage(int id, String from, Date time, String message, boolean left) {
+    public ChatMessage(int id, String from, Date time, String message, boolean ownMessage) {
         this.id = id;
         this.from = from;
         this.time = time;
         this.message = message;
-        this.left = left;
+        this.ownMessage = ownMessage;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ChatMessage implements Comparable<ChatMessage> {
         return message;
     }
 
-    public boolean isLeft() {
-        return left;
+    public boolean isOwnMessage() {
+        return ownMessage;
     }
 }

@@ -1,8 +1,6 @@
 package eu.menzerath.bpchat.chat;
 
 import android.content.Context;
-import android.text.Html;
-import android.text.SpannedString;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,34 +60,33 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         tvTime.setText(Helper.formatDateToString(message.getTime()));
         tvMessage.setText(prepareMessage(message.getMessage()));
 
-        if (message.getFrom().equalsIgnoreCase(chatActivity.getUser().username) && !message.isLeft())
+        if (message.isOwnMessage())
             tvFrom.setText(""); // "tvFrom.setVisibility(View.GONE);" funktioniert nicht korrekt!
 
         // Anpassung der Blasen für besseren Look
-        messageBubble.setBackgroundResource(message.isLeft() ? R.drawable.bubble_left : R.drawable.bubble_right);
-        messageBubble.setGravity(message.isLeft() ? Gravity.LEFT : Gravity.RIGHT);
-        wrapper.setGravity(message.isLeft() ? Gravity.LEFT : Gravity.RIGHT);
+        messageBubble.setBackgroundResource(message.isOwnMessage() ? R.drawable.bubble_right : R.drawable.bubble_left);
+        if (message.getMessage().contains("@" + chatActivity.getPrefs().getString("username", ""))) {
+            messageBubble.setBackgroundResource(message.isOwnMessage() ? R.drawable.bubble_right_mention : R.drawable.bubble_left_mention);
+        }
+        messageBubble.setGravity(message.isOwnMessage() ? Gravity.RIGHT : Gravity.LEFT);
+        wrapper.setGravity(message.isOwnMessage() ? Gravity.RIGHT : Gravity.LEFT);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        if (message.isLeft()) {
-            params.setMargins(3, 3, 14, 3);
-        } else {
+        if (message.isOwnMessage()) {
             params.setMargins(14, 3, 3, 3);
+        } else {
+            params.setMargins(3, 3, 14, 3);
         }
         messageBubble.setLayoutParams(params);
         return row;
     }
 
-    private SpannedString prepareMessage(String rawMessage) {
+    private String prepareMessage(String rawMessage) {
         if (chatActivity.getPrefs().getBoolean("showEmojis", true)) {
             rawMessage = Emoji.replaceInText(rawMessage);
         }
 
-        if (rawMessage.contains("@" + chatActivity.getPrefs().getString("username", ""))) {
-            rawMessage = rawMessage.replaceAll("(?i)@" + chatActivity.getPrefs().getString("username", ""), "<b>$0</b>");
-        }
-
-        return new SpannedString(Html.fromHtml(rawMessage));
+        return rawMessage;
     }
 
     public ChatMessage getItem(int index) {

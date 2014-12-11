@@ -9,8 +9,6 @@
     <string name="cat_ui">Oberfläche</string>
     <string name="title_ui_maxMessages">Anzuzeigende Nachrichten</string>
     <string name="sum_ui_maxMessages">Wie viele Nachrichten sollen geladen und angezeigt werden?</string>
-    <string name="title_ui_twoBubbles">Eigene Nachrichten abgrenzen</string>
-    <string name="sum_ui_twoBubbles">Zeigt deine Nachrichten auf der rechten Seite an, die Nachrichten der anderen Nutzer auf der linken Seite.</string>
     <string name="title_ui_showEmojis">Emojis anzeigen</string>
     <string name="sum_ui_showEmojis">Zeigt statt den Zeichen ein Emoji an.\nBei Darstellungsfehlern diese Funktion deaktivieren.</string>
 
