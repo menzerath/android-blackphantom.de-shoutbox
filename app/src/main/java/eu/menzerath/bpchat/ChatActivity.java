@@ -194,10 +194,6 @@ public class ChatActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public User getUser() {
-        return mUser;
-    }
-
     public SharedPreferences getPrefs() {
         return prefs;
     }
@@ -229,7 +225,7 @@ public class ChatActivity extends Activity {
                 mInput.setEnabled(true);
                 mButton.setEnabled(true);
             } else {
-                mAdapter.add(new ChatMessage(0, getString(R.string.app_message_user), new Date(), getString(R.string.login_no_success) + mUser.getLastError(), true));
+                Toast.makeText(ChatActivity.this, getString(R.string.login_no_success) + mUser.getLastError(), Toast.LENGTH_LONG).show();
                 getActionBar().setSubtitle(getString(R.string.login_no));
                 mInput.setEnabled(false);
                 mButton.setEnabled(false);
@@ -287,7 +283,8 @@ public class ChatActivity extends Activity {
                 }
             } else {
                 // Fehler-Nachricht, falls keine Nachrichten abgerufen werden konnten
-                mAdapter.add(new ChatMessage(0, getString(R.string.app_message_user), new Date(), getString(R.string.get_messages_no_success) + mUser.getLastError(), true));
+                Toast.makeText(ChatActivity.this, getString(R.string.get_messages_no_success) + mUser.getLastError(), Toast.LENGTH_LONG).show();
+
             }
             setProgressBarVisibility(false);
         }
@@ -327,7 +324,7 @@ public class ChatActivity extends Activity {
                 mInput.setText("");
             } else {
                 // Fehler-Nachricht anzeigen
-                mAdapter.add(new ChatMessage(0, getString(R.string.app_message_user), new Date(), getString(R.string.send_message_no_success) + mUser.getLastError(), true));
+                Toast.makeText(ChatActivity.this, getString(R.string.send_message_no_success) + mUser.getLastError(), Toast.LENGTH_LONG).show();
             }
             mInput.setEnabled(true);
             mButton.setEnabled(true);
@@ -381,7 +378,7 @@ public class ChatActivity extends Activity {
                 alertDialog.show();
             } else {
                 // Fehler-Nachricht, falls keine User abgerufen werden konnten
-                Toast.makeText(ChatActivity.this, getString(R.string.onlineUsers_error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatActivity.this, getString(R.string.onlineUsers_error), Toast.LENGTH_LONG).show();
             }
         }
     }
