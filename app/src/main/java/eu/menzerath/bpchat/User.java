@@ -78,7 +78,7 @@ public class User {
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(LOGIN_URL);
         try {
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            List<NameValuePair> nameValuePairs = new ArrayList<>(2);
             nameValuePairs.add(new BasicNameValuePair("username", this.username));
             nameValuePairs.add(new BasicNameValuePair("password", this.password));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
@@ -119,7 +119,7 @@ public class User {
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(GET_MESSAGES_URL);
         try {
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+            List<NameValuePair> nameValuePairs = new ArrayList<>(1);
             nameValuePairs.add(new BasicNameValuePair("limit", prefs.getString("maxMessages", "100")));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 
@@ -131,7 +131,7 @@ public class User {
             JSONObject json = new JSONObject(jsonResponse);
 
             if (json.getBoolean("success")) {
-                ArrayList<ChatMessage> messages = new ArrayList<ChatMessage>();
+                ArrayList<ChatMessage> messages = new ArrayList<>();
 
                 JSONObject payloadData = json.getJSONObject("payload");
                 Iterator<?> keys = payloadData.keys();
@@ -172,7 +172,7 @@ public class User {
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(SEND_MESSAGE_URL);
         try {
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+            List<NameValuePair> nameValuePairs = new ArrayList<>(1);
             nameValuePairs.add(new BasicNameValuePair("body", message.trim()));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 

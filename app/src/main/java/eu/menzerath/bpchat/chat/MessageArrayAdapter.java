@@ -20,7 +20,7 @@ import eu.menzerath.bpchat.R;
  */
 public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
     private ChatActivity chatActivity;
-    private List<ChatMessage> messages = new ArrayList<ChatMessage>(); // Liste mit den Chat-Nachrichten
+    private List<ChatMessage> messages = new ArrayList<>(); // Liste mit den Chat-Nachrichten
 
     public MessageArrayAdapter(ChatActivity chatActivity, int textViewResourceId) {
         super(chatActivity, textViewResourceId);
