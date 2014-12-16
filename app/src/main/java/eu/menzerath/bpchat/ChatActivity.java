@@ -320,7 +320,7 @@ public class ChatActivity extends Activity {
         protected void onPostExecute(Boolean success) {
             if (success) {
                 // Eigene Nachricht anzeigen
-                mAdapter.add(new ChatMessage(newMessageId, mUser.username, new Date(), mMessage, false));
+                mAdapter.add(new ChatMessage(newMessageId, mUser.username, new Date(), mMessage, true));
                 mInput.setText("");
             } else {
                 // Fehler-Nachricht anzeigen
