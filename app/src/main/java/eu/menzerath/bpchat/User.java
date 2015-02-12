@@ -10,6 +10,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -26,20 +28,17 @@ import java.util.List;
 
 import eu.menzerath.bpchat.chat.ChatMessage;
 import eu.menzerath.bpchat.chat.Helper;
+import eu.menzerath.bpchat.chat.TlsSniSocketFactory;
 
 /**
  * Ein Nutzer, der mit der API interagieren kann
  * TODO: Klasse aufräumen!
  */
 public class User {
-    //private static final String LOGIN_URL = "https://blacky.pf-control.de/chat/api/authentication.php";
-    //private static final String GET_MESSAGES_URL = "https://blacky.pf-control.de/chat/api/loadLastMessages.php";
-    //private static final String SEND_MESSAGE_URL = "https://blacky.pf-control.de/chat/api/sendMessage.php";
-    //private static final String GET_USERS_URL = "https://blacky.pf-control.de/chat/pi/onlineusers.php";
-    private static final String LOGIN_URL = "http://chat.blackphantom.de/api/authentication.php";
-    private static final String GET_MESSAGES_URL = "http://chat.blackphantom.de/api/loadLastMessages.php";
-    private static final String SEND_MESSAGE_URL = "http://chat.blackphantom.de/api/sendMessage.php";
-    private static final String GET_USERS_URL = "http://chat.blackphantom.de/api/onlineusers.php";
+    private static final String LOGIN_URL = "https://chat.blackphantom.de/api/authentication.php";
+    private static final String GET_MESSAGES_URL = "https://chat.blackphantom.de/api/loadLastMessages.php";
+    private static final String SEND_MESSAGE_URL = "https://chat.blackphantom.de/api/sendMessage.php";
+    private static final String GET_USERS_URL = "https://chat.blackphantom.de/api/onlineusers.php";
     public final String username;
     public final String password;
     private final SharedPreferences prefs;
@@ -76,6 +75,9 @@ public class User {
      */
     public boolean login() {
         HttpClient httpclient = new DefaultHttpClient();
+        SchemeRegistry schemeRegistry = httpclient.getConnectionManager().getSchemeRegistry();
+        schemeRegistry.register(new Scheme("https", new TlsSniSocketFactory(), 443));
+
         HttpPost httppost = new HttpPost(LOGIN_URL);
         try {
             List<NameValuePair> nameValuePairs = new ArrayList<>(2);
@@ -117,6 +119,9 @@ public class User {
         isLoadingMessages = true;
 
         HttpClient httpclient = new DefaultHttpClient();
+        SchemeRegistry schemeRegistry = httpclient.getConnectionManager().getSchemeRegistry();
+        schemeRegistry.register(new Scheme("https", new TlsSniSocketFactory(), 443));
+
         HttpPost httppost = new HttpPost(GET_MESSAGES_URL);
         try {
             List<NameValuePair> nameValuePairs = new ArrayList<>(1);
@@ -170,6 +175,9 @@ public class User {
         isSendingMessage = true;
 
         HttpClient httpclient = new DefaultHttpClient();
+        SchemeRegistry schemeRegistry = httpclient.getConnectionManager().getSchemeRegistry();
+        schemeRegistry.register(new Scheme("https", new TlsSniSocketFactory(), 443));
+
         HttpPost httppost = new HttpPost(SEND_MESSAGE_URL);
         try {
             List<NameValuePair> nameValuePairs = new ArrayList<>(1);
@@ -210,6 +218,9 @@ public class User {
         isLoadingUsers = true;
 
         HttpClient httpclient = new DefaultHttpClient();
+        SchemeRegistry schemeRegistry = httpclient.getConnectionManager().getSchemeRegistry();
+        schemeRegistry.register(new Scheme("https", new TlsSniSocketFactory(), 443));
+
         HttpPost httppost = new HttpPost(GET_USERS_URL);
         try {
             HttpResponse response = httpclient.execute(httppost, localContext);
