@@ -30,7 +30,7 @@
     <string name="title_about_app">Diese App</string>
     <string name="sum_about_app">BlackPhantom.DE Shoutbox - Version ???</string>
     <string name="title_about_dev">Den Entwickler</string>
-    <string name="sum_about_dev">Marvin Menzerath - http://menzerath.eu</string>
+    <string name="sum_about_dev">Marvin Menzerath - https://menzerath.eu</string>
 
     <string-array name="autoReloadInterval">
         <item name="5">Alle 5 Sekunden</item>

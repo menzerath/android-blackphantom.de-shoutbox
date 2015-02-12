@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -27,7 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/listView1"
-        android:alpha="0.8"
+        android:alpha="0.75"
         android:src="@android:color/background_light" />
 
     <ListView
@@ -35,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/editText1"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/toolbar"
         android:divider="@null" />
 
     <View
@@ -53,6 +54,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dip"
+        android:layout_marginStart="5dip"
         android:layout_marginTop="1.5dip"
         android:layout_toLeftOf="@+id/button"
         android:layout_toStartOf="@+id/button"
@@ -62,7 +65,9 @@
         android:hint="@string/editText_hint"
         android:inputType="textMultiLine|textCapSentences"
         android:maxLines="3"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:textColor="#000"
+        android:textColorHint="#ff525252" />
 
     <Button
         android:id="@+id/button"
@@ -75,5 +80,14 @@
         android:layout_alignTop="@+id/editText1"
         android:enabled="false"
         android:text="@string/button_send" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 </RelativeLayout>

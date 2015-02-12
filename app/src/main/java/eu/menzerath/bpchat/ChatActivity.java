@@ -1,6 +1,5 @@
 package eu.menzerath.bpchat;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -10,12 +9,13 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,7 +33,7 @@ import eu.menzerath.bpchat.chat.MessageArrayAdapter;
 /**
  * Die Haupt-Activity für den gesamten Chat mit der Anzeige der Nachrichten und dem Eingabefeld
  */
-public class ChatActivity extends Activity {
+public class ChatActivity extends ActionBarActivity {
     private MessageArrayAdapter mAdapter;
     private EditText mInput;
     private Button mButton;
@@ -54,11 +54,10 @@ public class ChatActivity extends Activity {
     }
 
     private void initGui() {
-        requestWindowFeature(Window.FEATURE_PROGRESS); // Unterstützung für die ProgressBar über der ActionBar
-
         setContentView(R.layout.activity_chat);
 
-        setProgressBarIndeterminate(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // ListView mit den Nachrichten
         ListView mListView = (ListView) findViewById(R.id.listView1);
@@ -198,6 +197,18 @@ public class ChatActivity extends Activity {
         return prefs;
     }
 
+    private void setSubtitleToAction(User mUser) {
+        if (mUser.isLoggedIn()) {
+            getSupportActionBar().setSubtitle(getString(R.string.loggedin_as) + " " + mUser.username);
+        } else {
+            getSupportActionBar().setSubtitle(getString(R.string.login_no));
+        }
+    }
+
+    private void setSubtitleToAction(String action) {
+        getSupportActionBar().setSubtitle(action);
+    }
+
     /**
      * Asynchone Aufgabe, damit das UI nicht "hängenbleibt"
      */
@@ -215,21 +226,20 @@ public class ChatActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
-            getActionBar().setSubtitle(getString(R.string.login_running));
+            setSubtitleToAction(getString(R.string.login_running));
         }
 
         @Override
         protected void onPostExecute(Boolean success) {
             if (success) {
-                getActionBar().setSubtitle(getString(R.string.loggedin_as) + " " + mUser.username);
                 mInput.setEnabled(true);
                 mButton.setEnabled(true);
             } else {
                 Toast.makeText(ChatActivity.this, getString(R.string.login_no_success) + mUser.getLastError(), Toast.LENGTH_LONG).show();
-                getActionBar().setSubtitle(getString(R.string.login_no));
                 mInput.setEnabled(false);
                 mButton.setEnabled(false);
             }
+            setSubtitleToAction(mUser);
         }
     }
 
@@ -252,7 +262,7 @@ public class ChatActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
-            setProgressBarVisibility(true);
+            setSubtitleToAction(getString(R.string.loading_messages));
         }
 
         @Override
@@ -286,7 +296,7 @@ public class ChatActivity extends Activity {
                 Toast.makeText(ChatActivity.this, getString(R.string.get_messages_no_success) + mUser.getLastError(), Toast.LENGTH_LONG).show();
 
             }
-            setProgressBarVisibility(false);
+            setSubtitleToAction(mUser);
         }
     }
 
@@ -313,7 +323,7 @@ public class ChatActivity extends Activity {
         protected void onPreExecute() {
             mInput.setEnabled(false);
             mButton.setEnabled(false);
-            setProgressBarVisibility(true);
+            setSubtitleToAction(getString(R.string.sending_message));
         }
 
         @Override
@@ -328,7 +338,7 @@ public class ChatActivity extends Activity {
             }
             mInput.setEnabled(true);
             mButton.setEnabled(true);
-            setProgressBarVisibility(false);
+            setSubtitleToAction(mUser);
         }
     }
 
