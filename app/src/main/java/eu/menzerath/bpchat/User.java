@@ -32,7 +32,7 @@ import eu.menzerath.bpchat.chat.TlsSniSocketFactory;
 
 /**
  * Ein Nutzer, der mit der API interagieren kann
- * TODO: Klasse aufräumen!
+ * TODO: Klasse aufräumen und deprecated Warnungen ausmerzen!
  */
 public class User {
     private static final String LOGIN_URL = "https://chat.blackphantom.de/api/authentication.php";

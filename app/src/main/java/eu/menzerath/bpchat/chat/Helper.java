@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class Helper {
     private static final String SERVER_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static final String CLIENT_DATE_FORMAT = "dd.MM.yyyy HH:mm";
+    private static final String CLIENT_DATE_FORMAT = "dd.MM.yyyy HH:mm:ss";
 
     /**
      * Konvertiert ein Date-Objekt in eine lesbare Zeitangabe (als String)
@@ -16,7 +16,7 @@ public class Helper {
      * @return Zeitangabe (String)
      */
     public static String formatDateToString(Date timestamp) {
-        return new SimpleDateFormat(CLIENT_DATE_FORMAT).format(timestamp);
+        return new SimpleDateFormat(CLIENT_DATE_FORMAT, Locale.getDefault()).format(timestamp);
     }
 
     /**

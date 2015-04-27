@@ -24,7 +24,7 @@ public class ChatMessage implements Comparable<ChatMessage> {
     @Override
     public int compareTo(ChatMessage chatMessage) {
         // Methode, damit die Nachrichten (nach ihrer ID) sortiert werden können ("implements Comparable...")
-        return Integer.compare(this.id, chatMessage.id); // Methode erst ab API 19 verfügbar?!
+        return (this.id < chatMessage.id) ? -1 : ((this.id == chatMessage.id) ? 0 : 1);
     }
 
     public int getId() {

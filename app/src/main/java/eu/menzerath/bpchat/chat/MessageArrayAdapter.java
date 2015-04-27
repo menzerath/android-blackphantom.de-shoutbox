@@ -72,8 +72,8 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
         if (message.getMessage().contains("@" + chatActivity.getPrefs().getString("username", ""))) {
             messageBubble.setBackgroundResource(message.isOwnMessage() ? R.drawable.bubble_right_mention : R.drawable.bubble_left_mention);
         }
-        messageBubble.setGravity(message.isOwnMessage() ? Gravity.RIGHT : Gravity.LEFT);
-        wrapper.setGravity(message.isOwnMessage() ? Gravity.RIGHT : Gravity.LEFT);
+        messageBubble.setGravity(message.isOwnMessage() ? Gravity.END : Gravity.START);
+        wrapper.setGravity(message.isOwnMessage() ? Gravity.END : Gravity.START);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         if (message.isOwnMessage()) {

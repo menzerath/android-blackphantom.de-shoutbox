@@ -9,7 +9,7 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -33,7 +33,7 @@ import eu.menzerath.bpchat.chat.MessageArrayAdapter;
 /**
  * Die Haupt-Activity für den gesamten Chat mit der Anzeige der Nachrichten und dem Eingabefeld
  */
-public class ChatActivity extends ActionBarActivity {
+public class ChatActivity extends AppCompatActivity {
     private MessageArrayAdapter mAdapter;
     private EditText mInput;
     private Button mButton;
@@ -198,15 +198,17 @@ public class ChatActivity extends ActionBarActivity {
     }
 
     private void setSubtitleToAction(User mUser) {
-        if (mUser.isLoggedIn()) {
-            getSupportActionBar().setSubtitle(getString(R.string.loggedin_as) + " " + mUser.username);
-        } else {
-            getSupportActionBar().setSubtitle(getString(R.string.login_no));
+        if (getSupportActionBar() != null) {
+            if (mUser.isLoggedIn()) {
+                getSupportActionBar().setSubtitle(getString(R.string.loggedin_as) + " " + mUser.username);
+            } else {
+                getSupportActionBar().setSubtitle(getString(R.string.login_no));
+            }
         }
     }
 
     private void setSubtitleToAction(String action) {
-        getSupportActionBar().setSubtitle(action);
+        if (getSupportActionBar() != null) getSupportActionBar().setSubtitle(action);
     }
 
     /**
