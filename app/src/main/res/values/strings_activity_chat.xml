@@ -21,5 +21,7 @@
     <string name="onlineUsers_title">Angemeldete User</string>
     <string name="onlineUsers_error">Es konnten keine Daten abgerufen werden</string>
 
+    <string name="textCopied">Nachricht in Zwischenablage kopiert</string>
+
     <string name="app_message_user">Shoutbox</string>
 </resources>

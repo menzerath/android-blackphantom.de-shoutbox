@@ -1,6 +1,9 @@
 package eu.menzerath.bpchat.chat;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.os.Vibrator;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +82,23 @@ public class MessageArrayAdapter extends ArrayAdapter<ChatMessage> {
             params.setMargins(3, 3, 14, 3);
         }
         messageBubble.setLayoutParams(params);
+
+        // Lange auf Nachricht tippen um Text zu kopieren
+        final String tvMessageText = tvMessage.getText().toString();
+        tvMessage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipboardManager cManager = (ClipboardManager) chatActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData cData = ClipData.newPlainText("text", tvMessageText);
+                cManager.setPrimaryClip(cData);
+                Toast.makeText(chatActivity, R.string.textCopied, Toast.LENGTH_SHORT).show();
+
+                // kurze Vibration
+                Vibrator vibrator = (Vibrator) chatActivity.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(200);
+                return true;
+            }
+        });
         return row;
     }
 

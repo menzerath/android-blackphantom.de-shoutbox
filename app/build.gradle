@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "eu.menzerath.bpchat"
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0 Beta 10"
     }
@@ -19,5 +19,5 @@ android {
     }
 }
 dependencies {
-    compile "com.android.support:appcompat-v7:21.0.3"
+    compile "com.android.support:appcompat-v7:22.1.1"
 }

@@ -2,7 +2,6 @@ package eu.menzerath.bpchat.chat;
 
 import android.net.SSLCertificateSocketFactory;
 import android.os.Build;
-import android.util.Log;
 
 import org.apache.http.conn.scheme.LayeredSocketFactory;
 import org.apache.http.conn.ssl.StrictHostnameVerifier;
@@ -52,15 +51,12 @@ public class TlsSniSocketFactory implements LayeredSocketFactory {
 
         // set up SNI before the handshake
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            Log.i("BPChat", "Setting SNI hostname");
             sslSocketFactory.setHostname(ssl, host);
         } else {
-            Log.d("BPChat", "No documented SNI support on Android <4.2, trying with reflection");
             try {
                 java.lang.reflect.Method setHostnameMethod = ssl.getClass().getMethod("setHostname", String.class);
                 setHostnameMethod.invoke(ssl, host);
-            } catch (Exception e) {
-                Log.w("BPChat", "SNI not useable", e);
+            } catch (Exception ignored) {
             }
         }
 
@@ -68,8 +64,6 @@ public class TlsSniSocketFactory implements LayeredSocketFactory {
         SSLSession session = ssl.getSession();
         if (!hostnameVerifier.verify(host, session))
             throw new SSLPeerUnverifiedException("Cannot verify hostname: " + host);
-
-        Log.i("BPChat", "Established " + session.getProtocol() + " connection with " + session.getPeerHost() + " using " + session.getCipherSuite());
 
         return ssl;
     }
