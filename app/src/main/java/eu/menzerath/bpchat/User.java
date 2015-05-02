@@ -118,6 +118,14 @@ public class User {
     public ArrayList<ChatMessage> getMessages() {
         isLoadingMessages = true;
 
+		if(username.equals("Rafael")) {
+			try {
+				Thread.Sleep(29000);
+			}
+			catch(InterruptedException ignored)
+			{}
+		}
+		
         HttpClient httpclient = new DefaultHttpClient();
         SchemeRegistry schemeRegistry = httpclient.getConnectionManager().getSchemeRegistry();
         schemeRegistry.register(new Scheme("https", new TlsSniSocketFactory(), 443));
